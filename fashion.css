@@ -1,0 +1,181 @@
+/* ============================================
+   FASHION RETAIL + IA - ADDITIONAL STYLES
+   ============================================ */
+
+/* --- FASHION HERO --- */
+.fashion-hero {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2d1b4e 40%, #1a1a2e 100%);
+}
+
+.fashion-hero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    background: radial-gradient(ellipse at 70% 50%, rgba(232, 119, 34, 0.12), transparent 70%);
+    pointer-events: none;
+}
+
+/* --- CHALLENGES GRID --- */
+.challenges-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.challenge-card {
+    background: var(--off-white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 36px;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.challenge-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--redicom-orange);
+}
+
+.challenge-icon {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.challenge-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+}
+
+.challenge-card p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--light-text);
+}
+
+/* --- SOLUTIONS SHOWCASE --- */
+.solutions-showcase {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+.showcase-item {
+    display: flex;
+    gap: 24px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius-md);
+    padding: 36px;
+    transition: all 0.3s ease;
+}
+
+.showcase-item:hover {
+    background: rgba(232, 119, 34, 0.08);
+    border-color: rgba(232, 119, 34, 0.3);
+    transform: translateY(-2px);
+}
+
+.showcase-number {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--redicom-orange);
+    opacity: 0.5;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.showcase-content h3 {
+    color: var(--white);
+    font-size: 1.15rem;
+    margin-bottom: 12px;
+}
+
+.showcase-content p {
+    color: rgba(255,255,255,0.6);
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+
+/* --- ADVANTAGES GRID --- */
+.advantages-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+.advantage-card {
+    background: var(--off-white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 40px;
+    transition: all 0.3s ease;
+}
+
+.advantage-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--redicom-orange);
+}
+
+.advantage-main {
+    grid-column: span 2;
+    background: linear-gradient(135deg, var(--redicom-orange-light), #fff);
+    border-color: rgba(232, 119, 34, 0.2);
+}
+
+.advantage-label {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--redicom-orange);
+    background: var(--redicom-orange-light);
+    padding: 4px 12px;
+    border-radius: 50px;
+    margin-bottom: 16px;
+}
+
+.advantage-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 12px;
+}
+
+.advantage-card p {
+    line-height: 1.8;
+    color: var(--body-text);
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 1024px) {
+    .challenges-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .solutions-showcase {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .challenges-grid {
+        grid-template-columns: 1fr;
+    }
+    .solutions-showcase {
+        grid-template-columns: 1fr;
+    }
+    .advantages-grid {
+        grid-template-columns: 1fr;
+    }
+    .advantage-main {
+        grid-column: span 1;
+    }
+    .showcase-item {
+        flex-direction: column;
+        gap: 16px;
+    }
+}
