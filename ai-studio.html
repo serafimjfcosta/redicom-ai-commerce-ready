@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Studio | Estúdio Fotográfico com Inteligência Artificial | Redicom Commerce Cloud</title>
+    <meta name="description" content="O AI Studio da Redicom é um estúdio fotográfico alimentado por IA que fotografa coleções inteiras com consistência visual, sem intervenção humana. Crie modelos, poses, looks e campanhas editoriais automaticamente.">
+    <meta name="keywords" content="AI Studio, Estúdio Fotográfico IA, Fashion Photography AI, Virtual Models, Redicom, Agentic Commerce, Sessão Fotográfica Automática">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* === AI STUDIO PAGE SPECIFIC STYLES === */
+
+        /* --- HERO --- */
+        .studio-hero {
+            position: relative;
+            min-height: 520px;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            background: #0F1923;
+        }
+        .studio-hero-bg {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url('img/ai-studio-hero.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.55;
+        }
+        .studio-hero-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(90deg, rgba(15,25,35,0.95) 0%, rgba(15,25,35,0.6) 50%, rgba(15,25,35,0.3) 100%);
+        }
+        .studio-hero .container {
+            position: relative;
+            z-index: 2;
+            padding-top: 120px;
+            padding-bottom: 60px;
+        }
+        .studio-hero-content {
+            max-width: 600px;
+        }
+        .studio-hero-tag {
+            display: inline-block;
+            background: rgba(232,119,34,0.15);
+            color: var(--redicom-orange);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 6px 16px;
+            border-radius: 20px;
+            border: 1px solid rgba(232,119,34,0.3);
+            margin-bottom: 20px;
+        }
+        .studio-hero h1 {
+            color: #fff;
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 20px;
+        }
+        .studio-hero h1 span {
+            color: var(--redicom-orange);
+        }
+        .studio-hero-desc {
+            color: rgba(255,255,255,0.7);
+            font-size: 1.15rem;
+            line-height: 1.7;
+            margin-bottom: 32px;
+        }
+        .studio-hero-stats {
+            display: flex;
+            gap: 40px;
+        }
+        .studio-stat {
+            text-align: left;
+        }
+        .studio-stat-number {
+            color: var(--redicom-orange);
+            font-size: 2rem;
+            font-weight: 800;
+            line-height: 1;
+        }
+        .studio-stat-label {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.82rem;
+            margin-top: 4px;
+        }
+
+        /* --- SECTION STYLES --- */
+        .studio-section {
+            padding: 80px 0;
+        }
+        .studio-section-dark {
+            background: var(--dark-bg);
+            color: #fff;
+        }
+        .studio-section-accent {
+            background: linear-gradient(135deg, #0F1923 0%, #1A2736 100%);
+            color: #fff;
+        }
+        .studio-section-light {
+            background: var(--white);
+        }
+        .studio-section-alt {
+            background: var(--off-white);
+        }
+
+        .studio-section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 48px;
+        }
+        .studio-section-header h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+        .studio-section-header p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: var(--light-text);
+        }
+        .studio-section-dark .studio-section-header h2,
+        .studio-section-accent .studio-section-header h2 {
+            color: #fff;
+        }
+        .studio-section-dark .studio-section-header p,
+        .studio-section-accent .studio-section-header p {
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* --- SCREENSHOT SHOWCASE --- */
+        .screenshot-block {
+            margin-bottom: 64px;
+        }
+        .screenshot-block:last-child {
+            margin-bottom: 0;
+        }
+        .screenshot-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+        }
+        .screenshot-layout-reverse {
+            direction: rtl;
+        }
+        .screenshot-layout-reverse > * {
+            direction: ltr;
+        }
+        .screenshot-img-wrapper {
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-xl);
+            border: 1px solid var(--border);
+            background: #fff;
+        }
+        .screenshot-img-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .screenshot-img-wrapper-dark {
+            border-color: rgba(255,255,255,0.1);
+            background: var(--dark-bg-2);
+        }
+        .screenshot-content h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .screenshot-content .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--redicom-orange);
+            color: #fff;
+            font-size: 0.9rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+        .screenshot-content p {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--body-text);
+            margin-bottom: 16px;
+        }
+        .studio-section-dark .screenshot-content p,
+        .studio-section-accent .screenshot-content p {
+            color: rgba(255,255,255,0.7);
+        }
+        .screenshot-content h3 {
+            color: var(--dark-text);
+        }
+        .studio-section-dark .screenshot-content h3,
+        .studio-section-accent .screenshot-content h3 {
+            color: #fff;
+        }
+
+        .feature-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 16px;
+        }
+        .feature-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            background: var(--redicom-orange-light);
+            color: var(--redicom-orange-dark);
+            border-radius: 20px;
+            font-size: 0.82rem;
+            font-weight: 600;
+        }
+        .studio-section-dark .feature-tag,
+        .studio-section-accent .feature-tag {
+            background: rgba(232,119,34,0.15);
+            color: var(--redicom-orange);
+        }
+
+        /* --- BEFORE/AFTER --- */
+        .before-after-section {
+            padding: 80px 0;
+            background: var(--off-white);
+        }
+        .before-after-grid {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 32px;
+            align-items: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .before-after-card {
+            text-align: center;
+        }
+        .before-after-card img {
+            width: 100%;
+            max-width: 400px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+        }
+        .before-after-label {
+            display: inline-block;
+            margin-top: 16px;
+            padding: 6px 20px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+        .label-before {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        .label-after {
+            background: #dcfce7;
+            color: #166534;
+        }
+        .before-after-arrow {
+            font-size: 2.5rem;
+            color: var(--redicom-orange);
+            font-weight: 800;
+        }
+
+        /* --- WORKFLOW IMAGE --- */
+        .workflow-img {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            display: block;
+            border-radius: var(--radius-lg);
+        }
+
+        /* --- BENEFITS GRID --- */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .benefit-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: var(--radius-md);
+            padding: 32px 24px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .benefit-card:hover {
+            border-color: var(--redicom-orange);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(232,119,34,0.15);
+        }
+        .benefit-icon {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+        }
+        .benefit-card h3 {
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .benefit-card p {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* --- COMPARISON TABLE --- */
+        .compare-table-wrapper {
+            overflow-x: auto;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border);
+        }
+        .compare-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.92rem;
+        }
+        .compare-table thead {
+            background: var(--dark-bg);
+        }
+        .compare-table thead th {
+            color: #fff;
+            font-weight: 600;
+            padding: 16px 20px;
+            text-align: left;
+        }
+        .compare-table thead th:first-child {
+            border-radius: var(--radius-md) 0 0 0;
+        }
+        .compare-table thead th:last-child {
+            border-radius: 0 var(--radius-md) 0 0;
+        }
+        .compare-table tbody tr {
+            border-bottom: 1px solid var(--border);
+        }
+        .compare-table tbody tr:hover {
+            background: var(--redicom-orange-light);
+        }
+        .compare-table td {
+            padding: 14px 20px;
+            vertical-align: middle;
+        }
+        .compare-table td:first-child {
+            font-weight: 500;
+            color: var(--dark-text);
+        }
+        .compare-check {
+            color: var(--success);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        .compare-x {
+            color: #ef4444;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        /* --- CTA --- */
+        .studio-cta {
+            background: linear-gradient(135deg, var(--redicom-orange) 0%, var(--redicom-orange-dark) 100%);
+            padding: 80px 0;
+            text-align: center;
+        }
+        .studio-cta h2 {
+            color: #fff;
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+        .studio-cta p {
+            color: rgba(255,255,255,0.85);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 32px;
+            line-height: 1.7;
+        }
+        .studio-cta .btn-white {
+            display: inline-block;
+            background: #fff;
+            color: var(--redicom-orange-dark);
+            padding: 16px 36px;
+            border-radius: var(--radius-sm);
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s;
+            margin: 0 8px;
+        }
+        .studio-cta .btn-white:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+        }
+        .studio-cta .btn-outline-white {
+            display: inline-block;
+            background: transparent;
+            color: #fff;
+            padding: 14px 36px;
+            border-radius: var(--radius-sm);
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            border: 2px solid rgba(255,255,255,0.4);
+            transition: all 0.3s;
+            margin: 0 8px;
+        }
+        .studio-cta .btn-outline-white:hover {
+            border-color: #fff;
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .studio-hero h1 {
+                font-size: 2rem;
+            }
+            .studio-hero-stats {
+                flex-wrap: wrap;
+                gap: 24px;
+            }
+            .screenshot-layout,
+            .screenshot-layout-reverse {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            .screenshot-layout-reverse {
+                direction: ltr;
+            }
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+            .before-after-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .before-after-arrow {
+                transform: rotate(90deg);
+            }
+            .studio-cta h2 {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGATION -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="https://www.redicom.pt" class="nav-logo">
+                <svg width="180" height="40" viewBox="0 0 180 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="2" y="2" width="14" height="14" rx="2" fill="#E87722"/>
+                    <rect x="18" y="2" width="6" height="6" rx="1" fill="#E87722"/>
+                    <rect x="18" y="14" width="6" height="6" rx="1" fill="#E87722"/>
+                    <rect x="26" y="8" width="6" height="6" rx="1" fill="#E87722"/>
+                    <rect x="10" y="22" width="6" height="6" rx="1" fill="#E87722"/>
+                    <rect x="2" y="30" width="6" height="6" rx="1" fill="#E87722"/>
+                    <text x="40" y="22" font-family="Inter, sans-serif" font-size="18" font-weight="700" fill="#1a1a2e">redicom</text>
+                    <text x="40" y="36" font-family="Inter, sans-serif" font-size="11" font-weight="300" fill="#666">commerce cloud</text>
+                </svg>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Agentic Commerce</a>
+                <a href="fashion-retail-ia.html" class="nav-link">Fashion Retail + IA</a>
+                <a href="ai-studio.html" class="nav-link" style="color: var(--redicom-orange);">AI Studio</a>
+                <a href="agentic-storefronts.html" class="nav-link">Requisitos Técnicos</a>
+                <a href="https://www.redicom.pt/pt/contactos_203.html" class="nav-link nav-cta">Fale Connosco</a>
+            </div>
+            <button class="nav-toggle" id="navToggle" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="studio-hero">
+        <div class="studio-hero-bg"></div>
+        <div class="studio-hero-overlay"></div>
+        <div class="container">
+            <div class="studio-hero-content">
+                <div class="studio-hero-tag">Novo</div>
+                <h1>O seu Estúdio Fotográfico. <span>Alimentado por IA.</span></h1>
+                <p class="studio-hero-desc">O AI Studio da Redicom vai muito além do "Virtual Try-On". É um estúdio fotográfico completo que fotografa coleções inteiras com uma consistência visual impressionante, sem intervenção humana.</p>
+                <div class="studio-hero-stats">
+                    <div class="studio-stat">
+                        <div class="studio-stat-number">24/7</div>
+                        <div class="studio-stat-label">Funciona sem parar</div>
+                    </div>
+                    <div class="studio-stat">
+                        <div class="studio-stat-number">0</div>
+                        <div class="studio-stat-label">Intervenção humana</div>
+                    </div>
+                    <div class="studio-stat">
+                        <div class="studio-stat-number">100%</div>
+                        <div class="studio-stat-label">Consistência visual</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INTRO: O QUE É -->
+    <section class="studio-section studio-section-light">
+        <div class="container">
+            <div class="studio-section-header">
+                <h2>Muito Mais que Virtual Try-On</h2>
+                <p>O AI Studio utiliza a última tecnologia em geração de imagem para criar um estúdio fotográfico completo. Crie os seus modelos, escolha o que quer fotografar, e o estúdio trabalha por si, sem parar.</p>
+            </div>
+            <img src="img/ai-studio-workflow.jpg" alt="Workflow do AI Studio" class="workflow-img" style="box-shadow: var(--shadow-xl);">
+        </div>
+    </section>
+
+    <!-- STEP 1: MODELOS -->
+    <section class="studio-section studio-section-alt">
+        <div class="container">
+            <div class="screenshot-block">
+                <div class="screenshot-layout">
+                    <div class="screenshot-img-wrapper">
+                        <img src="img/ai-studio-modelos.png" alt="Criação de Modelos Virtuais no AI Studio">
+                    </div>
+                    <div class="screenshot-content">
+                        <div class="step-number">1</div>
+                        <h3>Crie os Seus Modelos Virtuais</h3>
+                        <p>Crie e personalize avatares digitais hiper-realistas. Configure características físicas, vestuário base e estilo para alinhar com a identidade da sua marca. Cada modelo é exclusivamente seu e mantém uma consistência visual perfeita em todas as sessões fotográficas.</p>
+                        <p>Defina o tipo de corpo, tom de pele, cabelo, expressão facial e muito mais. Os seus modelos ficam disponíveis para reutilizar em todas as coleções futuras.</p>
+                        <div class="feature-tags">
+                            <span class="feature-tag">&#10003; Avatares Hiper-realistas</span>
+                            <span class="feature-tag">&#10003; Personalização Total</span>
+                            <span class="feature-tag">&#10003; Reutilizáveis</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STEP 2: POSES -->
+    <section class="studio-section studio-section-light">
+        <div class="container">
+            <div class="screenshot-block">
+                <div class="screenshot-layout screenshot-layout-reverse">
+                    <div class="screenshot-img-wrapper">
+                        <img src="img/ai-studio-poses.png" alt="Biblioteca de Poses no AI Studio">
+                    </div>
+                    <div class="screenshot-content">
+                        <div class="step-number">2</div>
+                        <h3>Biblioteca de Poses Dinâmicas</h3>
+                        <p>Explore uma biblioteca completa de poses organizadas por categoria: Casual, Relax, Elegant, Movement, Confident e muito mais. Ou carregue as suas próprias referências de poses para guiar a geração de imagens.</p>
+                        <p>Cada pose é cuidadosamente desenhada para valorizar diferentes tipos de peças, desde vestidos fluidos a casacos estruturados, garantindo que cada produto é apresentado da melhor forma possível.</p>
+                        <div class="feature-tags">
+                            <span class="feature-tag">&#10003; Poses por Categoria</span>
+                            <span class="feature-tag">&#10003; Upload Personalizado</span>
+                            <span class="feature-tag">&#10003; Dinâmicas e Naturais</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STEP 3: LOOKS / VALIDAÇÃO -->
+    <section class="studio-section studio-section-alt">
+        <div class="container">
+            <div class="screenshot-block">
+                <div class="screenshot-layout">
+                    <div class="screenshot-img-wrapper">
+                        <img src="img/ai-studio-looks.png" alt="Validação de Looks no AI Studio">
+                    </div>
+                    <div class="screenshot-content">
+                        <div class="step-number">3</div>
+                        <h3>Composição e Validação de Looks</h3>
+                        <p>Antes de avançar para produção, valide a composição de cada look. Combine o produto principal com coordenados: casaco, top, bolsa, calçado. Ajuste cada peça e confirme que o styling está perfeito.</p>
+                        <p>O sistema sugere automaticamente coordenados compatíveis do seu catálogo, mas dá-lhe total controlo para ajustar. Cada look é uma sessão fotográfica completa com contexto editorial.</p>
+                        <div class="feature-tags">
+                            <span class="feature-tag">&#10003; Styling Automático</span>
+                            <span class="feature-tag">&#10003; Coordenados do Catálogo</span>
+                            <span class="feature-tag">&#10003; Controlo Total</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STEP 4: MONITOR / SESSÃO -->
+    <section class="studio-section studio-section-light">
+        <div class="container">
+            <div class="screenshot-block">
+                <div class="screenshot-layout screenshot-layout-reverse">
+                    <div class="screenshot-img-wrapper">
+                        <img src="img/ai-studio-monitor.png" alt="Monitorização da Sessão Fotográfica">
+                    </div>
+                    <div class="screenshot-content">
+                        <div class="step-number">4</div>
+                        <h3>Monitorização da Sessão Fotográfica</h3>
+                        <p>Acompanhe em tempo real o estado da produção fotográfica e o progresso de cada imagem. Veja quantos produtos estão em processamento, processados, pendentes ou com erro.</p>
+                        <p>Basta clicar em "Iniciar" e o estúdio trabalha por si. Fotografa toda a coleção sem intervenção humana, com progresso visível a cada momento. Pode lançar sessões de centenas de produtos e ir acompanhando o resultado.</p>
+                        <div class="feature-tags">
+                            <span class="feature-tag">&#10003; Tempo Real</span>
+                            <span class="feature-tag">&#10003; Sem Intervenção</span>
+                            <span class="feature-tag">&#10003; Produção em Massa</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STEP 5: RESULTADOS -->
+    <section class="studio-section studio-section-alt">
+        <div class="container">
+            <div class="screenshot-block">
+                <div class="screenshot-layout">
+                    <div class="screenshot-img-wrapper">
+                        <img src="img/ai-studio-sessao.png" alt="Resultados da Sessão Fotográfica AI">
+                    </div>
+                    <div class="screenshot-content">
+                        <div class="step-number">5</div>
+                        <h3>Resultados: Sessão Fotográfica Completa</h3>
+                        <p>Cada produto é fotografado com o modelo escolhido, os coordenados definidos e cenários editoriais variados. O resultado são múltiplas fotografias profissionais por look, com consistência visual entre toda a coleção.</p>
+                        <p>Veja o modelo, o produto principal, os coordenados e as fotografias geradas lado a lado. Cada sessão produz imagens prontas para a loja online, redes sociais, catálogos impressos e campanhas de marketing.</p>
+                        <div class="feature-tags">
+                            <span class="feature-tag">&#10003; Múltiplas Fotos por Look</span>
+                            <span class="feature-tag">&#10003; Cenários Variados</span>
+                            <span class="feature-tag">&#10003; Prontas a Publicar</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BEFORE / AFTER -->
+    <section class="studio-section studio-section-dark">
+        <div class="container">
+            <div class="studio-section-header">
+                <h2>De Produto Flat a Editorial Profissional</h2>
+                <p>Veja a diferença entre uma fotografia de produto tradicional e o resultado do AI Studio.</p>
+            </div>
+            <div style="text-align: center;">
+                <img src="img/ai-studio-before-after.jpg" alt="Antes e Depois - AI Studio" style="max-width: 700px; width: 100%; border-radius: var(--radius-lg); box-shadow: var(--shadow-xl);">
+                <div style="display: flex; justify-content: center; gap: 200px; margin-top: 20px;">
+                    <span class="before-after-label label-before">Fotografia Flat</span>
+                    <span class="before-after-label label-after">AI Studio</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CAPACIDADES -->
+    <section class="studio-section studio-section-accent">
+        <div class="container">
+            <div class="studio-section-header">
+                <h2>O Que Pode Fazer com o AI Studio</h2>
+                <p>Muito mais do que fotografar produtos. É uma plataforma completa de produção visual para moda e retalho.</p>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">&#128247;</div>
+                    <h3>Sessões Fotográficas Automáticas</h3>
+                    <p>Fotografe coleções inteiras sem fotógrafo, estúdio físico ou modelos reais. O AI Studio trabalha 24/7.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">&#127912;</div>
+                    <h3>Campanhas Editoriais</h3>
+                    <p>Crie campanhas com fundos, cenários e ambientes editoriais. De rua urbana a estúdio minimalista, tudo configurável.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">&#128090;</div>
+                    <h3>Styling Completo</h3>
+                    <p>Combine peças do catálogo em looks completos com casaco, top, bolsa e calçado. Coordenados automáticos ou manuais.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">&#128200;</div>
+                    <h3>Informação de Fit</h3>
+                    <p>Mostre como cada peça veste em diferentes tipos de corpo, ajudando o cliente a escolher com confiança.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">&#127760;</div>
+                    <h3>Cenários e Fundos</h3>
+                    <p>Defina ambientes para cada coleção: praia, cidade, natureza, estúdio. Mude o cenário sem refotografar.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">&#9889;</div>
+                    <h3>Consistência Visual</h3>
+                    <p>Todos os produtos da mesma coleção mantêm a mesma linguagem visual, modelo e estilo editorial.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMPARAÇÃO -->
+    <section class="studio-section studio-section-light">
+        <div class="container">
+            <div class="studio-section-header">
+                <h2>AI Studio vs. Produção Fotográfica Tradicional</h2>
+                <p>Veja como o AI Studio transforma a produção de conteúdo visual para e-commerce.</p>
+            </div>
+            <div class="compare-table-wrapper">
+                <table class="compare-table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Produção Tradicional</th>
+                            <th>AI Studio Redicom</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Custo por sessão fotográfica</td>
+                            <td>Elevado (estúdio + fotógrafo + modelos)</td>
+                            <td><span class="compare-check">&#10003;</span> Fração do custo</td>
+                        </tr>
+                        <tr>
+                            <td>Tempo de produção por coleção</td>
+                            <td>Semanas de planeamento e execução</td>
+                            <td><span class="compare-check">&#10003;</span> Horas, não semanas</td>
+                        </tr>
+                        <tr>
+                            <td>Disponibilidade</td>
+                            <td>Depende de agendamento e disponibilidade</td>
+                            <td><span class="compare-check">&#10003;</span> 24/7, sem paragens</td>
+                        </tr>
+                        <tr>
+                            <td>Consistência visual entre produtos</td>
+                            <td>Variável (luz, modelo, cenário mudam)</td>
+                            <td><span class="compare-check">&#10003;</span> 100% consistente</td>
+                        </tr>
+                        <tr>
+                            <td>Escalabilidade</td>
+                            <td>Limitada pelo tempo e orçamento</td>
+                            <td><span class="compare-check">&#10003;</span> Centenas de produtos por sessão</td>
+                        </tr>
+                        <tr>
+                            <td>Mudança de cenário ou modelo</td>
+                            <td>Nova sessão completa necessária</td>
+                            <td><span class="compare-check">&#10003;</span> Reconfigurar e relançar</td>
+                        </tr>
+                        <tr>
+                            <td>Styling e coordenados</td>
+                            <td>Stylist dedicado necessário</td>
+                            <td><span class="compare-check">&#10003;</span> Automático a partir do catálogo</td>
+                        </tr>
+                        <tr>
+                            <td>Integração com e-commerce</td>
+                            <td><span class="compare-x">&#10007;</span> Manual, upload separado</td>
+                            <td><span class="compare-check">&#10003;</span> Nativa, direto para o catálogo</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="studio-cta">
+        <h2>Pronto para transformar a sua produção fotográfica?</h2>
+        <p>Descubra como o AI Studio pode fotografar toda a sua coleção com qualidade editorial, sem estúdio físico e sem intervenção humana.</p>
+        <div>
+            <a href="https://www.redicom.pt/pt/contactos_203.html" class="btn-white">Peça uma Demonstração</a>
+            <a href="index.html" class="btn-outline-white">AI Commerce Ready</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <svg width="150" height="36" viewBox="0 0 180 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="2" y="2" width="14" height="14" rx="2" fill="#E87722"/>
+                        <rect x="18" y="2" width="6" height="6" rx="1" fill="#E87722"/>
+                        <rect x="18" y="14" width="6" height="6" rx="1" fill="#E87722"/>
+                        <rect x="26" y="8" width="6" height="6" rx="1" fill="#E87722"/>
+                        <rect x="10" y="22" width="6" height="6" rx="1" fill="#E87722"/>
+                        <rect x="2" y="30" width="6" height="6" rx="1" fill="#E87722"/>
+                        <text x="40" y="22" font-family="Inter, sans-serif" font-size="18" font-weight="700" fill="#fff">redicom</text>
+                        <text x="40" y="36" font-family="Inter, sans-serif" font-size="11" font-weight="300" fill="#999">commerce cloud</text>
+                    </svg>
+                    <p class="footer-desc">Plataforma preparada para o Agentic Commerce, com AI Studio integrado, faturação certificada pela AT e POS Omnicanal certificado.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Agentic Commerce</h4>
+                    <a href="index.html">AI Commerce Ready</a>
+                    <a href="ai-studio.html">AI Studio</a>
+                    <a href="agentic-storefronts.html">Requisitos Técnicos</a>
+                    <a href="fashion-retail-ia.html">Fashion Retail + IA</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Plataforma</h4>
+                    <a href="https://www.redicom.pt/pt/plataforma-b2c_670.html">Plataforma B2C</a>
+                    <a href="https://www.redicom.pt/pt/plataforma-oms_663.html">OMS</a>
+                    <a href="https://www.redicom.pt">POS Omnicanal</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Contacto</h4>
+                    <a href="https://www.redicom.pt/pt/contactos_203.html">Peça uma Demonstração</a>
+                    <a href="https://www.redicom.pt">redicom.pt</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Redicom Commerce Cloud. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
