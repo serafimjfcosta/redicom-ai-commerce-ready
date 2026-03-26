@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agentic Storefronts | Requisitos Técnicos | Redicom Commerce Cloud</title>
+    <meta name="description" content="Requisitos técnicos e considerações para vender em Agentic Storefronts com a Redicom Commerce Cloud. Catálogo estruturado, stock em tempo real, faturação certificada AT e POS Omnicanal.">
+    <meta name="keywords" content="Agentic Storefronts, Agentic Commerce, Requisitos Técnicos, Redicom, ChatGPT, Google AI, Microsoft Copilot, Faturação AT, POS Omnicanal">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* === TECHNICAL PAGE SPECIFIC STYLES === */
+
+        .tech-hero {
+            background: linear-gradient(135deg, #0F1923 0%, #1A2736 50%, #0F1923 100%);
+            padding: 140px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        .tech-hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(ellipse at 30% 50%, rgba(232,119,34,0.08) 0%, transparent 60%);
+        }
+        .tech-hero .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+        .tech-hero h1 {
+            color: #fff;
+            font-size: 2.6rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+        .tech-hero h1 span {
+            color: var(--redicom-orange);
+        }
+        .tech-hero .hero-subtitle {
+            color: rgba(255,255,255,0.65);
+            font-size: 1.15rem;
+            line-height: 1.7;
+            max-width: 680px;
+        }
+        .tech-breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 24px;
+            font-size: 0.85rem;
+        }
+        .tech-breadcrumb a {
+            color: var(--redicom-orange);
+            text-decoration: none;
+        }
+        .tech-breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        .tech-breadcrumb span {
+            color: rgba(255,255,255,0.4);
+        }
+
+        /* --- TOC --- */
+        .toc-section {
+            background: var(--off-white);
+            padding: 48px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .toc-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--light-text);
+            margin-bottom: 16px;
+        }
+        .toc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 12px;
+        }
+        .toc-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 18px;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            color: var(--dark-text);
+            font-size: 0.92rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .toc-item:hover {
+            border-color: var(--redicom-orange);
+            box-shadow: var(--shadow-sm);
+            transform: translateY(-1px);
+        }
+        .toc-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--redicom-orange-light);
+            color: var(--redicom-orange);
+            font-size: 0.8rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        /* --- TECHNICAL CONTENT --- */
+        .tech-content {
+            padding: 64px 0;
+        }
+        .tech-section {
+            margin-bottom: 64px;
+            scroll-margin-top: 100px;
+        }
+        .tech-section:last-child {
+            margin-bottom: 0;
+        }
+        .tech-section-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid var(--redicom-orange);
+        }
+        .tech-section-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--redicom-orange);
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+        .tech-section-header h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark-text);
+            margin: 0;
+        }
+
+        .tech-paragraph {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--body-text);
+            margin-bottom: 24px;
+            max-width: 780px;
+        }
+
+        /* --- REQUIREMENTS TABLE --- */
+        .req-table-wrapper {
+            overflow-x: auto;
+            margin: 24px 0 32px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+        }
+        .req-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.92rem;
+        }
+        .req-table thead {
+            background: var(--dark-bg);
+        }
+        .req-table thead th {
+            color: #fff;
+            font-weight: 600;
+            padding: 16px 20px;
+            text-align: left;
+            white-space: nowrap;
+        }
+        .req-table thead th:first-child {
+            border-radius: var(--radius-md) 0 0 0;
+        }
+        .req-table thead th:last-child {
+            border-radius: 0 var(--radius-md) 0 0;
+        }
+        .req-table tbody tr {
+            border-bottom: 1px solid var(--border);
+            transition: background 0.15s;
+        }
+        .req-table tbody tr:hover {
+            background: var(--redicom-orange-light);
+        }
+        .req-table tbody tr:last-child {
+            border-bottom: none;
+        }
+        .req-table td {
+            padding: 14px 20px;
+            vertical-align: top;
+        }
+        .req-table td:first-child {
+            font-weight: 500;
+            color: var(--dark-text);
+            min-width: 260px;
+        }
+        .req-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        .req-badge-required {
+            background: #dcfce7;
+            color: #166534;
+        }
+        .req-badge-recommended {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        .req-badge-native {
+            background: var(--redicom-orange-light);
+            color: var(--redicom-orange-dark);
+        }
+        .req-badge-exclusive {
+            background: #ede9fe;
+            color: #5b21b6;
+        }
+
+        /* --- INFO CALLOUT --- */
+        .tech-callout {
+            display: flex;
+            gap: 16px;
+            padding: 20px 24px;
+            border-radius: var(--radius-md);
+            margin: 24px 0;
+            font-size: 0.92rem;
+            line-height: 1.7;
+        }
+        .tech-callout-icon {
+            flex-shrink: 0;
+            font-size: 1.3rem;
+            margin-top: 2px;
+        }
+        .tech-callout-info {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            color: #1e40af;
+        }
+        .tech-callout-warning {
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            color: #92400e;
+        }
+        .tech-callout-success {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            color: #166534;
+        }
+        .tech-callout-exclusive {
+            background: var(--redicom-orange-light);
+            border: 1px solid #fcd9b6;
+            color: var(--redicom-orange-dark);
+        }
+
+        /* --- FEATURE LISTS --- */
+        .tech-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0 28px;
+        }
+        .tech-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--body-text);
+        }
+        .tech-list li:last-child {
+            border-bottom: none;
+        }
+        .tech-list-icon {
+            flex-shrink: 0;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 0.75rem;
+            margin-top: 2px;
+        }
+        .tech-list-icon-check {
+            background: #dcfce7;
+            color: #166534;
+        }
+        .tech-list-icon-x {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        .tech-list-icon-warn {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        /* --- COMPARISON HIGHLIGHT --- */
+        .exclusive-box {
+            background: linear-gradient(135deg, var(--redicom-orange-light) 0%, #fff 100%);
+            border: 2px solid var(--redicom-orange);
+            border-radius: var(--radius-md);
+            padding: 32px;
+            margin: 32px 0;
+            position: relative;
+        }
+        .exclusive-box::before {
+            content: 'Exclusivo Redicom';
+            position: absolute;
+            top: -12px;
+            left: 24px;
+            background: var(--redicom-orange);
+            color: #fff;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 4px 14px;
+            border-radius: 20px;
+        }
+        .exclusive-box h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--dark-text);
+        }
+        .exclusive-box p {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--body-text);
+        }
+        .exclusive-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-top: 20px;
+        }
+        .exclusive-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        .exclusive-item-icon {
+            color: var(--redicom-orange);
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .exclusive-item-text strong {
+            display: block;
+            font-size: 0.92rem;
+            color: var(--dark-text);
+            margin-bottom: 2px;
+        }
+        .exclusive-item-text span {
+            font-size: 0.85rem;
+            color: var(--light-text);
+            line-height: 1.5;
+        }
+
+        /* --- DATA MAPPING FLOW --- */
+        .flow-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin: 28px 0;
+        }
+        .flow-step {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 24px 20px;
+            text-align: center;
+            position: relative;
+            transition: all 0.2s;
+        }
+        .flow-step:hover {
+            border-color: var(--redicom-orange);
+            box-shadow: var(--shadow-md);
+        }
+        .flow-step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--redicom-orange);
+            color: #fff;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .flow-step h4 {
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: var(--dark-text);
+            margin-bottom: 6px;
+        }
+        .flow-step p {
+            font-size: 0.82rem;
+            color: var(--light-text);
+            line-height: 1.5;
+        }
+        .flow-arrow {
+            display: none;
+        }
+
+        /* --- MONOSPACE CODE --- */
+        .tech-code {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--off-white);
+            border: 1px solid var(--border);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            color: var(--redicom-orange-dark);
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .tech-hero h1 {
+                font-size: 1.8rem;
+            }
+            .exclusive-grid {
+                grid-template-columns: 1fr;
+            }
+            .req-table td:first-child {
+                min-width: 180px;
+            }
+            .tech-section-header h2 {
+                font-size: 1.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGATION -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="https://www.redicom.pt" class="nav-logo">
+                <svg width="180" height="40" viewBox="0 0 180 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="2" y="2" width="14" height="14" rx="2" fill="#E87722"/>
+                    <rect x="18" y="2" width="6" height="6" rx="1" fill="#E87722"/>
+                    <rect x="18" y="14" width="6" height="6" rx="1" fill="#E87722"/>
+                    <rect x="26" y="8" width="6" height="6" rx="1" fill="#E87722"/>
+                    <rect x="10" y="22" width="6" height="6" rx="1" fill="#E87722"/>
+                    <rect x="2" y="30" width="6" height="6" rx="1" fill="#E87722"/>
+                    <text x="40" y="22" font-family="Inter, sans-serif" font-size="18" font-weight="700" fill="#1a1a2e">redicom</text>
+                    <text x="40" y="36" font-family="Inter, sans-serif" font-size="11" font-weight="300" fill="#666">commerce cloud</text>
+                </svg>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Agentic Commerce</a>
+                <a href="fashion-retail-ia.html" class="nav-link">Fashion Retail + IA</a>
+                <a href="agentic-storefronts.html" class="nav-link" style="color: var(--redicom-orange);">Requisitos Técnicos</a>
+                <a href="https://www.redicom.pt/pt/contactos_203.html" class="nav-link nav-cta">Fale Connosco</a>
+            </div>
+            <button class="nav-toggle" id="navToggle" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="tech-hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="tech-breadcrumb">
+                    <a href="index.html">AI Commerce Ready</a>
+                    <span>/</span>
+                    <span style="color: rgba(255,255,255,0.6);">Agentic Storefronts</span>
+                </div>
+                <h1>Requisitos e Considerações para Vender em <span>Agentic Storefronts</span></h1>
+                <p class="hero-subtitle">Para que os seus produtos sejam descobertos e comprados diretamente em canais de IA como ChatGPT, Google AI Mode, Gemini e Microsoft Copilot, a sua operação deve cumprir determinados requisitos. A Redicom Commerce Cloud prepara tudo nativamente.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- TABLE OF CONTENTS -->
+    <section class="toc-section">
+        <div class="container">
+            <div class="toc-title">Nesta Página</div>
+            <div class="toc-grid">
+                <a href="#requisitos" class="toc-item">
+                    <span class="toc-number">1</span>
+                    Requisitos de Elegibilidade
+                </a>
+                <a href="#consideracoes" class="toc-item">
+                    <span class="toc-number">2</span>
+                    Considerações Operacionais
+                </a>
+                <a href="#exclusivo" class="toc-item">
+                    <span class="toc-number">3</span>
+                    Exclusivo Redicom: Faturação AT &amp; POS
+                </a>
+                <a href="#nao-suportado" class="toc-item">
+                    <span class="toc-number">4</span>
+                    Funcionalidades Não Suportadas
+                </a>
+                <a href="#mapeamento" class="toc-item">
+                    <span class="toc-number">5</span>
+                    Mapeamento de Catálogo para IA
+                </a>
+                <a href="#checkout" class="toc-item">
+                    <span class="toc-number">6</span>
+                    Checkout e Experiência do Cliente
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT -->
+    <div class="tech-content">
+        <div class="container">
+
+            <!-- SECTION 1: REQUISITOS -->
+            <div class="tech-section" id="requisitos">
+                <div class="tech-section-header">
+                    <div class="tech-section-number">1</div>
+                    <h2>Requisitos de Elegibilidade</h2>
+                </div>
+                <p class="tech-paragraph">Para utilizar os Agentic Storefronts e permitir que os seus produtos sejam descobertos e comprados diretamente em canais de Inteligência Artificial, é necessário cumprir os seguintes requisitos. A Redicom Commerce Cloud resolve nativamente a maioria destes requisitos, ao contrário de plataformas que exigem configuração manual ou integrações externas.</p>
+
+                <div class="req-table-wrapper">
+                    <table class="req-table">
+                        <thead>
+                            <tr>
+                                <th>Requisito</th>
+                                <th>ChatGPT</th>
+                                <th>Google AI / Gemini</th>
+                                <th>Microsoft Copilot</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Catálogo Estruturado para IA<br><small style="color: var(--light-text);">Redicom PM Feed</small></td>
+                                <td><span class="req-badge req-badge-required">&#10003; Obrigatório</span></td>
+                                <td><span class="req-badge req-badge-required">&#10003; Obrigatório</span></td>
+                                <td><span class="req-badge req-badge-required">&#10003; Obrigatório</span></td>
+                            </tr>
+                            <tr>
+                                <td>Sincronização de Stock em Tempo Real<br><small style="color: var(--light-text);">Redicom OMS</small></td>
+                                <td><span class="req-badge req-badge-required">&#10003; Obrigatório</span></td>
+                                <td><span class="req-badge req-badge-required">&#10003; Obrigatório</span></td>
+                                <td><span class="req-badge req-badge-required">&#10003; Obrigatório</span></td>
+                            </tr>
+                            <tr>
+                                <td>Preço e Promoções Sincronizados<br><small style="color: var(--light-text);">Motor de Campanhas Redicom</small></td>
+                                <td><span class="req-badge req-badge-required">&#10003; Obrigatório</span></td>
+                                <td><span class="req-badge req-badge-required">&#10003; Obrigatório</span></td>
+                                <td><span class="req-badge req-badge-required">&#10003; Obrigatório</span></td>
+                            </tr>
+                            <tr>
+                                <td>Atributos de Produto Ricos<br><small style="color: var(--light-text);">Variantes, Materiais, Tamanhos, Imagens</small></td>
+                                <td><span class="req-badge req-badge-recommended">Recomendado</span></td>
+                                <td><span class="req-badge req-badge-required">&#10003; Obrigatório</span></td>
+                                <td><span class="req-badge req-badge-required">&#10003; Obrigatório</span></td>
+                            </tr>
+                            <tr>
+                                <td>Políticas Legais Publicadas<br><small style="color: var(--light-text);">Termos, Privacidade, Devoluções</small></td>
+                                <td><span class="req-badge req-badge-required">&#10003; Obrigatório</span></td>
+                                <td><span class="req-badge req-badge-required">&#10003; Obrigatório</span></td>
+                                <td><span class="req-badge req-badge-required">&#10003; Obrigatório</span></td>
+                            </tr>
+                            <tr>
+                                <td>Checkout Funcional e Seguro<br><small style="color: var(--light-text);">Redicom Checkout Nativo</small></td>
+                                <td><span class="req-badge req-badge-required">&#10003; Obrigatório</span></td>
+                                <td><span class="req-badge req-badge-required">&#10003; Obrigatório</span></td>
+                                <td><span class="req-badge req-badge-required">&#10003; Obrigatório</span></td>
+                            </tr>
+                            <tr>
+                                <td>Faturação Certificada pela AT<br><small style="color: var(--light-text);">Exclusivo Redicom em Portugal</small></td>
+                                <td><span class="req-badge req-badge-exclusive">&#9733; Exclusivo</span></td>
+                                <td><span class="req-badge req-badge-exclusive">&#9733; Exclusivo</span></td>
+                                <td><span class="req-badge req-badge-exclusive">&#9733; Exclusivo</span></td>
+                            </tr>
+                            <tr>
+                                <td>POS Omnicanal Certificado<br><small style="color: var(--light-text);">Exclusivo Redicom em Portugal</small></td>
+                                <td><span class="req-badge req-badge-exclusive">&#9733; Exclusivo</span></td>
+                                <td><span class="req-badge req-badge-exclusive">&#9733; Exclusivo</span></td>
+                                <td><span class="req-badge req-badge-exclusive">&#9733; Exclusivo</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="tech-callout tech-callout-info">
+                    <span class="tech-callout-icon">&#9432;</span>
+                    <div>A Redicom Commerce Cloud cumpre nativamente todos os requisitos técnicos para Agentic Storefronts. O catálogo estruturado, a sincronização de stock e preço, e o checkout seguro fazem parte do núcleo da plataforma, sem necessidade de plugins ou integrações externas.</div>
+                </div>
+            </div>
+
+            <!-- SECTION 2: CONSIDERAÇÕES -->
+            <div class="tech-section" id="consideracoes">
+                <div class="tech-section-header">
+                    <div class="tech-section-number">2</div>
+                    <h2>Considerações Operacionais</h2>
+                </div>
+                <p class="tech-paragraph">Antes de ativar as vendas via Agentic Storefronts, reveja as seguintes considerações técnicas e operacionais que afetam a forma como os seus produtos são apresentados e vendidos em canais de IA.</p>
+
+                <ul class="tech-list">
+                    <li>
+                        <span class="tech-list-icon tech-list-icon-check">&#10003;</span>
+                        <div><strong>Descoberta Automática:</strong> Os seus produtos são automaticamente descobertos pelos agentes de IA através do sistema de feeds da Redicom (<span class="tech-code">PM Feed</span>). Não precisa de ações manuais diárias para manter a visibilidade nos canais de IA.</div>
+                    </li>
+                    <li>
+                        <span class="tech-list-icon tech-list-icon-check">&#10003;</span>
+                        <div><strong>Stock e Preço em Tempo Real:</strong> A plataforma Redicom garante que as consultas de agentes de IA acedem a dados atualizados. O preço e a disponibilidade refletem exatamente o estado do <span class="tech-code">Redicom OMS</span>, evitando ruturas ou discrepâncias entre canais.</div>
+                    </li>
+                    <li>
+                        <span class="tech-list-icon tech-list-icon-check">&#10003;</span>
+                        <div><strong>Promoções e Regras de Negócio:</strong> Descontos automáticos, campanhas sazonais e códigos promocionais configurados no backoffice da Redicom são suportados e calculados corretamente no momento da conversão, assegurando coerência comercial em todos os canais.</div>
+                    </li>
+                    <li>
+                        <span class="tech-list-icon tech-list-icon-warn">&#9888;</span>
+                        <div><strong>Descrições de Produto:</strong> Certifique-se de que as descrições dos produtos incluem informações cruciais (composição, cuidados, avisos legais, dimensões) nos primeiros 6.000 caracteres, para facilitar o processamento e a apresentação pelos agentes de IA.</div>
+                    </li>
+                    <li>
+                        <span class="tech-list-icon tech-list-icon-check">&#10003;</span>
+                        <div><strong>Sem Taxas Adicionais:</strong> A Redicom não cobra taxas transacionais adicionais por vendas originadas em Agentic Storefronts. Aplicam-se apenas as taxas normais de processamento de pagamento do seu contrato.</div>
+                    </li>
+                    <li>
+                        <span class="tech-list-icon tech-list-icon-check">&#10003;</span>
+                        <div><strong>Atribuição de Canal:</strong> Todas as encomendas originadas em Agentic Storefronts são identificadas no backoffice Redicom com a atribuição do canal de origem (ChatGPT, Google AI, Copilot), permitindo análise de performance por canal.</div>
+                    </li>
+                    <li>
+                        <span class="tech-list-icon tech-list-icon-check">&#10003;</span>
+                        <div><strong>Propriedade da Relação com o Cliente:</strong> A Redicom garante que retém total propriedade da relação com o cliente e da experiência pós-compra, tal como nas encomendas da sua loja online.</div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- SECTION 3: EXCLUSIVO REDICOM -->
+            <div class="tech-section" id="exclusivo">
+                <div class="tech-section-header">
+                    <div class="tech-section-number">3</div>
+                    <h2>Exclusivo Redicom: Faturação AT e POS Omnicanal Certificado</h2>
+                </div>
+                <p class="tech-paragraph">A Redicom é a única plataforma de Agentic Commerce que oferece faturação integrada certificada pela Autoridade Tributária (AT) e POS Omnicanal certificado para faturar em Portugal. Esta é uma vantagem competitiva decisiva para retalhistas que operam no mercado português.</p>
+
+                <div class="exclusive-box">
+                    <h3>Faturação Integrada Certificada pela AT</h3>
+                    <p>Enquanto outras plataformas de e-commerce exigem integrações externas com software de faturação para cumprir a legislação fiscal portuguesa, a Redicom tem faturação nativa certificada pela Autoridade Tributária. Isto significa que cada venda, seja originada na loja online, num marketplace, num POS físico ou num Agentic Storefront, gera automaticamente o documento fiscal correto.</p>
+                    <div class="exclusive-grid">
+                        <div class="exclusive-item">
+                            <span class="exclusive-item-icon">&#10003;</span>
+                            <div class="exclusive-item-text">
+                                <strong>Faturas e Faturas-Recibo</strong>
+                                <span>Emissão automática conforme a legislação portuguesa</span>
+                            </div>
+                        </div>
+                        <div class="exclusive-item">
+                            <span class="exclusive-item-icon">&#10003;</span>
+                            <div class="exclusive-item-text">
+                                <strong>Comunicação à AT</strong>
+                                <span>SAF-T e comunicação de documentos integrada</span>
+                            </div>
+                        </div>
+                        <div class="exclusive-item">
+                            <span class="exclusive-item-icon">&#10003;</span>
+                            <div class="exclusive-item-text">
+                                <strong>Notas de Crédito</strong>
+                                <span>Gestão de devoluções com documentos fiscais corretos</span>
+                            </div>
+                        </div>
+                        <div class="exclusive-item">
+                            <span class="exclusive-item-icon">&#10003;</span>
+                            <div class="exclusive-item-text">
+                                <strong>Multi-mercado</strong>
+                                <span>Regras fiscais adaptadas por país e mercado</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exclusive-box">
+                    <h3>POS Omnicanal Certificado para Faturar em Portugal</h3>
+                    <p>O POS da Redicom é certificado pela AT para faturação em Portugal, permitindo uma operação verdadeiramente omnicanal. O mesmo produto, o mesmo stock, o mesmo cliente, as mesmas promoções, tudo sincronizado entre a loja online, os Agentic Storefronts e as lojas físicas, com faturação legal em todos os pontos de venda.</p>
+                    <div class="exclusive-grid">
+                        <div class="exclusive-item">
+                            <span class="exclusive-item-icon">&#10003;</span>
+                            <div class="exclusive-item-text">
+                                <strong>Stock Unificado</strong>
+                                <span>Visão única de inventário entre online, IA e lojas físicas</span>
+                            </div>
+                        </div>
+                        <div class="exclusive-item">
+                            <span class="exclusive-item-icon">&#10003;</span>
+                            <div class="exclusive-item-text">
+                                <strong>Click &amp; Collect</strong>
+                                <span>Compra online ou via IA, levantamento em loja</span>
+                            </div>
+                        </div>
+                        <div class="exclusive-item">
+                            <span class="exclusive-item-icon">&#10003;</span>
+                            <div class="exclusive-item-text">
+                                <strong>Devoluções Cross-Channel</strong>
+                                <span>Devolução em loja de compras feitas online ou via IA</span>
+                            </div>
+                        </div>
+                        <div class="exclusive-item">
+                            <span class="exclusive-item-icon">&#10003;</span>
+                            <div class="exclusive-item-text">
+                                <strong>Cliente Único</strong>
+                                <span>Perfil de cliente unificado em todos os canais</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tech-callout tech-callout-exclusive">
+                    <span class="tech-callout-icon">&#9733;</span>
+                    <div><strong>Nenhuma outra plataforma de Agentic Commerce oferece isto.</strong> Plataformas internacionais como Shopify, BigCommerce ou Salesforce Commerce Cloud não têm faturação certificada pela AT nem POS certificado para o mercado português. A Redicom é a única que combina Agentic Commerce com conformidade fiscal total em Portugal.</div>
+                </div>
+            </div>
+
+            <!-- SECTION 4: NÃO SUPORTADO -->
+            <div class="tech-section" id="nao-suportado">
+                <div class="tech-section-header">
+                    <div class="tech-section-number">4</div>
+                    <h2>Funcionalidades Não Suportadas ou Limitadas</h2>
+                </div>
+                <p class="tech-paragraph">Algumas funcionalidades específicas podem apresentar limitações quando a conversão ocorre diretamente num ambiente de Agentic Storefront (built-in checkout). Estas limitações são inerentes à natureza das interfaces de chat dos agentes de IA e não se aplicam quando o fluxo redireciona para o checkout standard da Redicom.</p>
+
+                <ul class="tech-list">
+                    <li>
+                        <span class="tech-list-icon tech-list-icon-x">&#10007;</span>
+                        <div><strong>Produtos B2B-only:</strong> Produtos configurados exclusivamente para clientes B2B (com necessidade de login ou aprovação de conta) não estão disponíveis para compra direta por agentes de IA públicos. Os clientes B2B continuam a utilizar o portal dedicado.</div>
+                    </li>
+                    <li>
+                        <span class="tech-list-icon tech-list-icon-x">&#10007;</span>
+                        <div><strong>Personalização Complexa:</strong> Produtos que exigem upload de ficheiros pelo cliente ou configurações visuais avançadas (customizadores 3D, gravação personalizada) podem não ser suportados nativamente pelas interfaces de chat dos agentes de IA.</div>
+                    </li>
+                    <li>
+                        <span class="tech-list-icon tech-list-icon-warn">&#9888;</span>
+                        <div><strong>Métodos de Entrega Específicos:</strong> Opções como "Levantamento em Loja" (Click &amp; Collect) ou "Entrega no Próprio Dia" podem não ser apresentadas no fluxo de checkout nativo de certos agentes de IA, dependendo da capacidade de recolher a localização do utilizador. No redirecionamento para o checkout Redicom, todas as opções ficam disponíveis.</div>
+                    </li>
+                    <li>
+                        <span class="tech-list-icon tech-list-icon-warn">&#9888;</span>
+                        <div><strong>Tracking Client-Side:</strong> Pixels de tracking customizados (client-side) podem não disparar em checkouts integrados em plataformas de IA. A Redicom assegura tracking server-to-server (S2S) para garantir a atribuição correta da venda ao canal de origem.</div>
+                    </li>
+                    <li>
+                        <span class="tech-list-icon tech-list-icon-warn">&#9888;</span>
+                        <div><strong>Checkout Blocks Customizados:</strong> Personalizações avançadas do checkout (campos customizados, upsells, validações específicas) podem não ser renderizadas no ambiente de checkout nativo dos agentes de IA. As funcionalidades essenciais para completar a compra são sempre mantidas.</div>
+                    </li>
+                    <li>
+                        <span class="tech-list-icon tech-list-icon-x">&#10007;</span>
+                        <div><strong>Subscrições e Produtos Digitais:</strong> Produtos com modelo de subscrição recorrente ou produtos puramente digitais (downloads, licenças) não são suportados no checkout direto dos Agentic Storefronts.</div>
+                    </li>
+                </ul>
+
+                <div class="tech-callout tech-callout-info">
+                    <span class="tech-callout-icon">&#9432;</span>
+                    <div>Quando a compra é redirecionada para o checkout standard da Redicom (como acontece com o ChatGPT), todas as funcionalidades ficam disponíveis sem limitações, incluindo Click &amp; Collect, personalização e todos os métodos de pagamento.</div>
+                </div>
+            </div>
+
+            <!-- SECTION 5: MAPEAMENTO -->
+            <div class="tech-section" id="mapeamento">
+                <div class="tech-section-header">
+                    <div class="tech-section-number">5</div>
+                    <h2>Mapeamento de Dados de Catálogo para IA</h2>
+                </div>
+                <p class="tech-paragraph">Para que os agentes de IA compreendam e recomendem os seus produtos com precisão, a informação deve estar perfeitamente estruturada. O Redicom Product Manager (PM) e o sistema de Feed Management tratam desta estruturação automaticamente, sem intervenção manual.</p>
+
+                <div class="flow-grid">
+                    <div class="flow-step">
+                        <div class="flow-step-number">1</div>
+                        <h4>Product Manager</h4>
+                        <p>Catálogo com atributos, variantes, imagens e contexto comercial</p>
+                    </div>
+                    <div class="flow-step">
+                        <div class="flow-step-number">2</div>
+                        <h4>AI Studio</h4>
+                        <p>Enriquecimento de descrições e otimização de conteúdo para IA</p>
+                    </div>
+                    <div class="flow-step">
+                        <div class="flow-step-number">3</div>
+                        <h4>Feed Management</h4>
+                        <p>Estruturação e mapeamento automático para cada canal de IA</p>
+                    </div>
+                    <div class="flow-step">
+                        <div class="flow-step-number">4</div>
+                        <h4>Sincronização</h4>
+                        <p>Atualização contínua de stock, preço e disponibilidade</p>
+                    </div>
+                    <div class="flow-step">
+                        <div class="flow-step-number">5</div>
+                        <h4>Agentes de IA</h4>
+                        <p>Produtos descobertos e recomendados com dados completos e atuais</p>
+                    </div>
+                </div>
+
+                <p class="tech-paragraph">Os produtos são listados e sincronizados com os canais de IA incluindo os seguintes dados estruturados:</p>
+
+                <ul class="tech-list">
+                    <li>
+                        <span class="tech-list-icon tech-list-icon-check">&#10003;</span>
+                        <div><strong>Título e Descrição Otimizados:</strong> Frequentemente gerados ou melhorados via <span class="tech-code">Redicom AI Studio</span>, com linguagem natural otimizada para processamento por agentes de IA.</div>
+                    </li>
+                    <li>
+                        <span class="tech-list-icon tech-list-icon-check">&#10003;</span>
+                        <div><strong>Variantes Completas:</strong> Tamanhos, cores, materiais e grelhas de tamanhos com disponibilidade individual por variante.</div>
+                    </li>
+                    <li>
+                        <span class="tech-list-icon tech-list-icon-check">&#10003;</span>
+                        <div><strong>Preço e Disponibilidade:</strong> Stock em tempo real por armazém e loja, preço base e preço promocional sincronizados.</div>
+                    </li>
+                    <li>
+                        <span class="tech-list-icon tech-list-icon-check">&#10003;</span>
+                        <div><strong>Imagens de Alta Qualidade:</strong> Múltiplas imagens por produto e por variante, otimizadas para apresentação em interfaces de IA.</div>
+                    </li>
+                    <li>
+                        <span class="tech-list-icon tech-list-icon-check">&#10003;</span>
+                        <div><strong>Atributos Estruturados:</strong> Material, estilo, ocasião, composição, cuidados e outros atributos que permitem aos agentes de IA filtrar e recomendar com precisão.</div>
+                    </li>
+                    <li>
+                        <span class="tech-list-icon tech-list-icon-check">&#10003;</span>
+                        <div><strong>Campos Customizados:</strong> Caso utilize Extra Fields para dados vitais do produto, o sistema de mapeamento da Redicom (<span class="tech-code">PM Feed Mapping</span>) assegura que essa informação é corretamente injetada no feed lido pelos agentes de IA.</div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- SECTION 6: CHECKOUT -->
+            <div class="tech-section" id="checkout">
+                <div class="tech-section-header">
+                    <div class="tech-section-number">6</div>
+                    <h2>Checkout e Experiência do Cliente</h2>
+                </div>
+                <p class="tech-paragraph">A experiência de checkout em Agentic Storefronts varia conforme o canal de IA. A Redicom suporta ambos os modelos de conversão, garantindo que a compra é sempre segura, rápida e com dados operacionais corretos.</p>
+
+                <div class="req-table-wrapper">
+                    <table class="req-table">
+                        <thead>
+                            <tr>
+                                <th>Canal de IA</th>
+                                <th>Modelo de Checkout</th>
+                                <th>Experiência</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>ChatGPT</strong></td>
+                                <td><span class="req-badge req-badge-native">Redirecionamento</span></td>
+                                <td>O cliente é direcionado para o checkout completo da Redicom, com todas as funcionalidades disponíveis (métodos de pagamento, Click &amp; Collect, personalização).</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Google AI Mode / Gemini</strong></td>
+                                <td><span class="req-badge req-badge-required">Built-in Checkout</span></td>
+                                <td>O cliente completa a compra diretamente na interface do Google, com checkout alimentado pelos dados da Redicom.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Microsoft Copilot</strong></td>
+                                <td><span class="req-badge req-badge-required">Built-in Checkout</span></td>
+                                <td>O cliente completa a compra diretamente na interface do Copilot, com checkout alimentado pelos dados da Redicom.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Assistente AI Redicom</strong></td>
+                                <td><span class="req-badge req-badge-exclusive">&#9733; Nativo</span></td>
+                                <td>Experiência totalmente integrada na loja online, com checkout Redicom nativo, faturação AT e todas as funcionalidades disponíveis.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="tech-callout tech-callout-success">
+                    <span class="tech-callout-icon">&#10003;</span>
+                    <div>Independentemente do canal de IA, a Redicom garante que retém total propriedade da relação com o cliente. Todas as encomendas são geridas centralmente no backoffice Redicom, com atribuição de canal, histórico completo e experiência pós-compra unificada.</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- CTA SECTION -->
+    <section class="section section-cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Prepare a sua operação para os Agentic Storefronts</h2>
+                <p>Fale com a nossa equipa técnica e descubra como a Redicom pode preparar o seu catálogo, stock e checkout para os agentes de IA.</p>
+                <div class="cta-actions">
+                    <a href="https://www.redicom.pt/pt/contactos_203.html" class="btn btn-primary btn-large">Fale com a Equipa Técnica</a>
+                    <a href="index.html" class="btn btn-outline-light btn-large">AI Commerce Ready</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <svg width="150" height="36" viewBox="0 0 180 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="2" y="2" width="14" height="14" rx="2" fill="#E87722"/>
+                        <rect x="18" y="2" width="6" height="6" rx="1" fill="#E87722"/>
+                        <rect x="18" y="14" width="6" height="6" rx="1" fill="#E87722"/>
+                        <rect x="26" y="8" width="6" height="6" rx="1" fill="#E87722"/>
+                        <rect x="10" y="22" width="6" height="6" rx="1" fill="#E87722"/>
+                        <rect x="2" y="30" width="6" height="6" rx="1" fill="#E87722"/>
+                        <text x="40" y="22" font-family="Inter, sans-serif" font-size="18" font-weight="700" fill="#fff">redicom</text>
+                        <text x="40" y="36" font-family="Inter, sans-serif" font-size="11" font-weight="300" fill="#999">commerce cloud</text>
+                    </svg>
+                    <p class="footer-desc">Plataforma preparada para o Agentic Commerce, com faturação certificada pela AT, POS Omnicanal certificado e controlo operacional total.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Agentic Commerce</h4>
+                    <a href="index.html">AI Commerce Ready</a>
+                    <a href="index.html#catalogo">Catálogo Inteligente</a>
+                    <a href="index.html#ai-studio">AI Studio</a>
+                    <a href="agentic-storefronts.html">Requisitos Técnicos</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Plataforma</h4>
+                    <a href="https://www.redicom.pt/pt/plataforma-b2c_670.html">Plataforma B2C</a>
+                    <a href="https://www.redicom.pt/pt/plataforma-oms_663.html">OMS</a>
+                    <a href="fashion-retail-ia.html">Fashion Retail + IA</a>
+                    <a href="https://www.redicom.pt">POS Omnicanal</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Contacto</h4>
+                    <a href="https://www.redicom.pt/pt/contactos_203.html">Fale com a Equipa Técnica</a>
+                    <a href="https://www.redicom.pt">redicom.pt</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Redicom Commerce Cloud. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
